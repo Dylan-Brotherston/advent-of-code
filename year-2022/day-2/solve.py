@@ -17,11 +17,13 @@ PLACEHOLDER: object = object()
 
 
 data: str = clean(get_data(year=2022, day=2))
-sample_data: str = clean("""
+sample_data: str = clean(
+    """
 A Y
 B X
 C Z
-""")
+"""
+)
 
 opponent_move_map: dict[str, str] = {
     "A": "R",
@@ -62,7 +64,7 @@ hand_outcome_map: dict[tuple[str, str], str] = {
 
 def A(input: str) -> int:
     total = 0
-    for line in input.splitlines():
+    for line in by_lines(input):
         opponent_move, player_move = line.split()
 
         outcome = hand_outcome_map[
@@ -97,7 +99,7 @@ player_shape_map: dict[tuple[str, str], str] = {
 
 def B(input: str) -> int:
     total = 0
-    for line in input.splitlines():
+    for line in by_lines(input):
         opponent_move, outcome = line.split()
 
         player_move = player_shape_map[

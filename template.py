@@ -8,7 +8,7 @@ import numpy as np
 import urllib3 as ul
 import dateutil.parser as dp
 
-from aocd import get_data, submit # type: ignore
+from aocd import get_data, submit  # type: ignore
 
 from share import *
 
@@ -17,8 +17,10 @@ PLACEHOLDER: object = object()
 
 
 data: str = clean(get_data(year=${YEAR}, day=${DAY}))
-sample_data: str = clean("""
-""")
+sample_data: str = clean(
+    """
+"""
+)
 
 
 def A(input: str) -> int:

@@ -17,7 +17,8 @@ PLACEHOLDER: object = object()
 
 
 data: str = clean(get_data(year=2022, day=1))
-sample_data: str = clean("""
+sample_data: str = clean(
+    """
 1000
 2000
 3000
@@ -32,7 +33,8 @@ sample_data: str = clean("""
 9000
 
 10000
-""")
+"""
+)
 
 
 def sum_groups(groups: list[str]) -> list[int]:

@@ -36,6 +36,8 @@ for i in range(1, 26):
         print(f"Creating day {year}/{i}")
 
         mkdir(f"year-{year}/day-{i}")
-        open(f"year-{year}/day-{i}/solve.py", "w").write(T.substitute({"DAY": i, "YEAR": year}))
+        open(f"year-{year}/day-{i}/solve.py", "w").write(
+            T.substitute({"DAY": i, "YEAR": year})
+        )
         chmod(f"year-{year}/day-{i}/solve.py", 0o755)
         symlink("../../share.py", f"year-{year}/day-{i}/share.py")

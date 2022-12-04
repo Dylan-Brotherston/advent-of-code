@@ -35,8 +35,7 @@ def A(input: str) -> int:
     for line in by_lines(input):
 
         length = len(line)
-        first_half, second_half = line[: length // 2], line[length // 2 :]
-        first_half, second_half = set(first_half), set(second_half)
+        first_half, second_half = set(line[: length // 2]), set(line[length // 2 :])
         intersection = first_half & second_half
         assert len(intersection) == 1
         intersection = intersection.pop()
@@ -54,8 +53,8 @@ def B(input: str) -> int:
 
     for line_1, line_2, line_3 in mit.chunked(by_lines(input), 3):
 
-        line_1, line_2, line_3 = set(line_1), set(line_2), set(line_3)
-        intersection = line_1 & line_2 & line_3
+        set_1, set_2, set_3 = set(line_1), set(line_2), set(line_3)
+        intersection = set_1 & set_2 & set_3
         assert len(intersection) == 1
         intersection = intersection.pop()
 

@@ -38,7 +38,7 @@ sample_data: str = clean(
 
 
 def sum_groups(groups: list[str]) -> list[int]:
-    return lmap(lambda x: sum(to_int(by_lines(x))), groups)
+    return lmap(lambda x: sum(to_ints(by_lines(x))), groups)
 
 
 def A(input: str) -> int:

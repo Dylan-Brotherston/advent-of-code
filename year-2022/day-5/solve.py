@@ -37,14 +37,14 @@ def A(input: str) -> str:
     init, moves = by_paragraphs(input)
     stacks = cl.defaultdict(list)
     for line in by_lines(init)[:-1]:
-        m = re.fullmatch(r"[[ ](.)[] ](?: [[ ](.)[] ])*", line)
-        for i, C in enumerate(m.captures(1) + m.captures(2), 1):
-            if C != " ":
-                stacks[i].insert(0, C)
+        match = re.fullmatch(r"[[ ](.)[] ](?: [[ ](.)[] ])*", line)
+        for index, letter in enumerate(match.captures(1) + match.captures(2), 1):
+            if letter != " ":
+                stacks[index].insert(0, letter)
 
     for move in by_lines(moves):
-        m = re.fullmatch(r"move (\d+) from (\d+) to (\d+)", move)
-        num, src, dst = map(int, m.groups())
+        match = re.fullmatch(r"move (\d+) from (\d+) to (\d+)", move)
+        num, src, dst = map(int, match.groups())
         for _ in range(num):
             stacks[dst].append(stacks[src].pop())
 
@@ -55,14 +55,14 @@ def B(input: str) -> str:
     init, moves = by_paragraphs(input)
     stacks = cl.defaultdict(list)
     for line in by_lines(init)[:-1]:
-        m = re.fullmatch(r"[[ ](.)[] ](?: [[ ](.)[] ])*", line)
-        for i, C in enumerate(m.captures(1) + m.captures(2), 1):
-            if C != " ":
-                stacks[i].insert(0, C)
+        match = re.fullmatch(r"[[ ](.)[] ](?: [[ ](.)[] ])*", line)
+        for index, letter in enumerate(match.captures(1) + match.captures(2), 1):
+            if letter != " ":
+                stacks[index].insert(0, letter)
 
     for move in by_lines(moves):
-        m = re.fullmatch(r"move (\d+) from (\d+) to (\d+)", move)
-        num, src, dst = map(int, m.groups())
+        match = re.fullmatch(r"move (\d+) from (\d+) to (\d+)", move)
+        num, src, dst = map(int, match.groups())
         stacks[dst] += stacks[src][-num:]
         stacks[src] = stacks[src][:-num]
 

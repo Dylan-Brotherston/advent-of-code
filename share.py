@@ -76,3 +76,259 @@ def nested_split(data: str, *args):
         return data
     sep, *args = args
     return list(collapse(lmap(lambda x: nested_split(x, *args), data.split(sep))))
+
+
+def from_ascii(ascii: str, padding = (0, 0)) -> str:
+    """
+    Convert ASCII art to a string
+    """
+    letters = {
+        'A': clean("""
+            .##.
+            #..#
+            #..#
+            ####
+            #..#
+            #..#
+        """),
+        'B': [clean("""
+            ###.
+            #..#
+            ###.
+            #..#
+            #..#
+            ###.
+        """), clean("""
+            ###.
+            #..#
+            #..#
+            ###.
+            #..#
+            ###.
+        """)],
+        'C': clean("""
+            .##.
+            #..#
+            #...
+            #...
+            #..#
+            .##.
+        """),
+        'D': clean("""
+            ###.
+            #..#
+            #..#
+            #..#
+            #..#
+            ###.
+        """),
+        'E': [clean("""
+            ####
+            #...
+            ###.
+            #...
+            #...
+            ####
+        """), clean("""
+            ####
+            #...
+            #...
+            ###.
+            #...
+            ####
+        """)],
+        'F': [clean("""
+            ####
+            #...
+            ###.
+            #...
+            #...
+            #...
+        """), clean("""
+            ####
+            #...
+            #...
+            ###.
+            #...
+            #...
+        """)],
+        'G': clean("""
+            .##.
+            #..#
+            #...
+            #.##
+            #..#
+            .###
+        """),
+        'H': [clean("""
+            #..#
+            #..#
+            ####
+            #..#
+            #..#
+            #..#
+        """), clean("""
+            #..#
+            #..#
+            #..#
+            ####
+            #..#
+            #..#
+        """)],
+        'I': [clean("""
+            .##.
+            ..#.
+            ..#.
+            ..#.
+            ..#.
+            .##.
+        """), clean("""
+            .##.
+            .#..
+            .#..
+            .#..
+            .#..
+            .##.
+        """)],
+        'J': clean("""
+            ..##
+            ...#
+            ...#
+            ...#
+            #..#
+            .##.
+        """),
+        'K': [clean("""
+            #..#
+            #.#.
+            ##..
+            #.#.
+            #..#
+            #..#
+        """), clean("""
+            #..#
+            #..#
+            #.#.
+            ##..
+            #.#.
+            #..#
+        """)],
+        'L': clean("""
+            #...
+            #...
+            #...
+            #...
+            #...
+            ####
+        """),
+        'M': clean("""
+        """),
+        'N': clean("""
+        """),
+        'O': clean("""
+            .##.
+            #..#
+            #..#
+            #..#
+            #..#
+            .##.
+        """),
+        'P': clean("""
+            ###.
+            #..#
+            #..#
+            ###.
+            #...
+            #...
+        """),
+        'Q': clean("""
+        """),
+        'R': clean("""
+            ###.
+            #..#
+            #..#
+            ###.
+            #.#.
+            #..#
+        """),
+        'S': [clean("""
+            .###
+            #...
+            .##.
+            ...#
+            ...#
+            ###.
+        """), clean("""
+            .###
+            #...
+            #...
+            .##.
+            ...#
+            ###.
+        """)],
+        'T': [clean("""
+            ####
+            ..#.
+            ..#.
+            ..#.
+            ..#.
+            ..#.
+        """), clean("""
+            ####
+            .#..
+            .#..
+            .#..
+            .#..
+            .#..
+        """)],
+        'U': clean("""
+            #..#
+            #..#
+            #..#
+            #..#
+            #..#
+            .##.
+        """),
+        'V': clean("""
+        """),
+        'W': clean("""
+        """),
+        'X': clean("""
+        """),
+        'Y': clean("""
+        """),
+        'Z': clean("""
+            ####
+            ...#
+            ..#.
+            .#..
+            #...
+            ####
+        """),
+    }
+
+    ascii = clean(ascii)
+    lines = by_lines(ascii)
+    height = len(lines)
+    width = len(lines[0])
+    result = ""
+    for y in range(0, height, 6):
+        for x in range(0, width, 4 + padding[0] + padding[1]):
+            letter = ""
+            for y2 in range(y, y + 6):
+                for x2 in range(x + padding[0], x + 4 + padding[0]):
+                    letter += lines[y2][x2]
+                letter += "\n"
+            for letter_name, letter_ascii in letters.items():
+                if isinstance(letter_ascii, list):
+                    if letter in letter_ascii:
+                        result += letter_name
+                        break
+                else:
+                    if letter == letter_ascii:
+                        result += letter_name
+                        break
+            else:
+                raise Exception(f"Could not find letter: {letter}")
+        result += " "
+    return result.strip()

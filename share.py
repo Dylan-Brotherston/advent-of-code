@@ -1,5 +1,6 @@
 from typing import Any, TypeVar, Optional
 
+from collections import defaultdict
 from multimethod import multimethod
 from more_itertools import collapse
 
@@ -332,3 +333,12 @@ def from_ascii(ascii: str, padding = (0, 0)) -> str:
                 raise Exception(f"Could not find letter: {letter}")
         result += " "
     return result.strip()
+
+
+class keydefaultdict(defaultdict):
+    def __missing__(self, key):
+        if self.default_factory is None:
+            raise KeyError( key )
+        else:
+            ret = self[key] = self.default_factory(key)
+            return ret

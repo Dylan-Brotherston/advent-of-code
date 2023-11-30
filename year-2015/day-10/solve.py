@@ -1,10 +1,7 @@
 #! /usr/bin/env python3
 
-import sys
-import os
 import itertools as it
 import functools as ft
-import collections as coll
 import more_itertools as mit
 import regex as re
 import numpy as np
@@ -15,37 +12,50 @@ import requests as rq
 import bs4 as bs
 import dateutil.parser as dp
 
-from itertools import chain, combinations, permutations, product
-from functools import reduce, lru_cache, wraps, partial, cmp_to_key
-from collections import defaultdict, deque, Counter
 from textwrap import dedent, indent
 from aocd import get_data, submit  # type: ignore
 from share import *
 
 
-puzzle_data: str = clean(get_data(year=${YEAR}, day=${DAY}))
+puzzle_data: str = clean(get_data(year=2015, day=10))
 sample_data: dict[str, list[tuple[str, int]]] = {
     "A": [
-        (clean(""), None),
     ],
     "B": [
-        (clean(""), None),
     ],
 }
 
 
 def A(input: str) -> int:
-    return None
+    def look_and_say(s: str) -> list[str]:
+        return ["".join(g) for _, g in it.groupby(s)]
+    for _ in range(40):
+        output = ""
+        runs = look_and_say(input)
+        for run in runs:
+            output += str(len(run)) + run[0]
+
+        input = output
+    return len(input)
 
 
 def B(input: str) -> int:
-    return None
+    def look_and_say(s: str) -> list[str]:
+        return ["".join(g) for _, g in it.groupby(s)]
+    for _ in range(50):
+        output = ""
+        runs = look_and_say(input)
+        for run in runs:
+            output += str(len(run)) + run[0]
+
+        input = output
+    return len(input)
 
 
 for data, solution in sample_data["A"]:
     assert (recived := A(data)) == solution, f"\nexpected:\n{indent(str(solution), '\t')}\n\nrecived:\n{indent(str(recived), '\t')}"
-submit(A(puzzle_data), part="a", day=${DAY}, year=${YEAR})
+submit(A(puzzle_data), part="a", day=10, year=2015)
 
 for data, solution in sample_data["B"]:
     assert (recived := B(data)) == solution, f"\nexpected:\n{indent(str(solution), '\t')}\n\nrecived:\n{indent(str(recived), '\t')}"
-submit(B(puzzle_data), part="b", day=${DAY}, year=${YEAR})
+submit(B(puzzle_data), part="b", day=10, year=2015)

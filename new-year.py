@@ -41,3 +41,5 @@ for i in range(1, 26):
         )
         chmod(f"year-{year}/day-{i}/solve.py", 0o755)
         symlink("../../share.py", f"year-{year}/day-{i}/share.py")
+    else:
+        print(f"Day {year}/{i} already exists")

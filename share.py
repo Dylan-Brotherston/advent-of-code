@@ -1,7 +1,6 @@
 from typing import Any, TypeVar, Optional
 
 from collections import defaultdict
-from multimethod import multimethod
 from more_itertools import collapse
 
 
@@ -45,14 +44,10 @@ def to_ints(data: list[str]) -> list[int]:
 def to_floats(data: list[str]) -> list[float]:
     return to_type(data, _type=float)
 
-
-@multimethod
-def irange(stop: int) -> range:
-    return range(stop + 1)
-
-
-@multimethod
-def irange(start: int, stop: int, step: int = 1) -> range:
+def irange(start: int, stop: int = None, step: int = 1) -> range:
+    if stop is None:
+        stop = start
+        start = 0
     return range(start, stop + 1, step)
 
 

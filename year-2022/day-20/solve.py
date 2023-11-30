@@ -1,10 +1,8 @@
 #! /usr/bin/env python3
 
-import sys
-import os
+import sys, os
 import itertools as it
 import functools as ft
-import collections as coll
 import more_itertools as mit
 import regex as re
 import numpy as np
@@ -15,15 +13,12 @@ import requests as rq
 import bs4 as bs
 import dateutil.parser as dp
 
-from itertools import chain, combinations, permutations, product
-from functools import reduce, lru_cache, wraps, partial, cmp_to_key
-from collections import defaultdict, deque, Counter
 from textwrap import dedent, indent
 from aocd import get_data, submit  # type: ignore
 from share import *
 
 
-puzzle_data: str = clean(get_data(year=${YEAR}, day=${DAY}))
+puzzle_data: str = clean(get_data(year=2022, day=20))
 sample_data: dict[str, list[tuple[str, int]]] = {
     "A": [
         (clean(""), None),
@@ -44,8 +39,8 @@ def B(input: str) -> int:
 
 for data, solution in sample_data["A"]:
     assert (recived := A(data)) == solution, f"\nexpected:\n{indent(str(solution), '\t')}\n\nrecived:\n{indent(str(recived), '\t')}"
-submit(A(puzzle_data), part="a", day=${DAY}, year=${YEAR})
+submit(A(puzzle_data), part="a", day=20, year=2022)
 
 for data, solution in sample_data["B"]:
     assert (recived := B(data)) == solution, f"\nexpected:\n{indent(str(solution), '\t')}\n\nrecived:\n{indent(str(recived), '\t')}"
-submit(B(puzzle_data), part="b", day=${DAY}, year=${YEAR})
+submit(B(puzzle_data), part="b", day=20, year=2022)

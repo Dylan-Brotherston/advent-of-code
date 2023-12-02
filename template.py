@@ -2,9 +2,11 @@
 
 import sys
 import os
-import itertools as it
+import math
+import statistics as stat
 import functools as ft
 import collections as coll
+import itertools as it
 import more_itertools as mit
 import regex as re
 import numpy as np
@@ -15,10 +17,14 @@ import requests as rq
 import bs4 as bs
 import dateutil.parser as dp
 
-from itertools import chain, combinations, permutations, product
-from functools import reduce, lru_cache, wraps, partial, cmp_to_key
-from collections import defaultdict, deque, Counter
-from textwrap import dedent, indent
+from textwrap import *
+from string import *
+from itertools import *
+from operator import *
+from more_itertools import *
+from functools import partial, reduce, lru_cache, wraps, cmp_to_key
+from collections import defaultdict, Counter, deque, namedtuple, OrderedDict
+from dataclasses import dataclass
 from aocd import get_data, submit  # type: ignore
 from share import *
 
@@ -26,10 +32,12 @@ from share import *
 puzzle_data: str = clean(get_data(year=${YEAR}, day=${DAY}))
 sample_data: dict[str, list[tuple[str, int]]] = {
     "A": [
-        (clean(""), None),
+        (clean("""
+"""), None),
     ],
     "B": [
-        (clean(""), None),
+        (clean("""
+"""), None),
     ],
 }
 

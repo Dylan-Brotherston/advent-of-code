@@ -1,8 +1,12 @@
 #! /usr/bin/env python3
 
-import sys, os
-import itertools as it
+import sys
+import os
+import math
+import statistics as stat
 import functools as ft
+import collections as coll
+import itertools as it
 import more_itertools as mit
 import regex as re
 import numpy as np
@@ -13,7 +17,14 @@ import requests as rq
 import bs4 as bs
 import dateutil.parser as dp
 
-from textwrap import dedent, indent
+from textwrap import *
+from string import *
+from itertools import *
+from operator import *
+from more_itertools import *
+from functools import partial, reduce, lru_cache, wraps, cmp_to_key
+from collections import defaultdict, Counter, deque, namedtuple, OrderedDict
+from dataclasses import dataclass
 from aocd import get_data, submit  # type: ignore
 from share import *
 
@@ -21,10 +32,12 @@ from share import *
 puzzle_data: str = clean(get_data(year=2023, day=3))
 sample_data: dict[str, list[tuple[str, int]]] = {
     "A": [
-        (clean(""), None),
+        (clean("""
+"""), None),
     ],
     "B": [
-        (clean(""), None),
+        (clean("""
+"""), None),
     ],
 }
 

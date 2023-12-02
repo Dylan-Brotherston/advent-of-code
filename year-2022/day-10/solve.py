@@ -255,4 +255,4 @@ assert A(sample_data) == 13140, A(sample_data)
 submit(A(data), part="a", day=10, year=2022)
 
 assert B(sample_data) == sample_output, B(sample_data)
-submit(from_ascii(B(data), (0, 1)), part="b", day=10, year=2022)
+submit(ascii_to_text(B(data), (0, 1)), part="b", day=10, year=2022)

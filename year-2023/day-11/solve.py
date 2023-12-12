@@ -36,21 +36,110 @@ puzzle_data: str = clean(get_data(year=2023, day=11))
 sample_data: dict[str, list[tuple[str, int]]] = {
     "A": [
         (clean("""
-"""), None),
+...#......
+.......#..
+#.........
+..........
+......#...
+.#........
+.........#
+..........
+.......#..
+#...#.....
+"""), 374),
     ],
     "B": [
         (clean("""
-"""), None),
+...#......
+.......#..
+#.........
+..........
+......#...
+.#........
+.........#
+..........
+.......#..
+#...#.....
+"""), 82000210),
     ],
 }
 
 
+@dataclass
+class Point(object):
+    row: int
+    col: int
+
+    def __hash__(self) -> int:
+        return hash((self.row, self.col))
+
+
 def A(input: str) -> int:
-    return None
+    galaxies: set[Point] = set()
+    non_empty_rows: set[int] = set()
+    non_empty_cols: set[int] = set()
+    for row, line in enumerate(input.splitlines()):
+        for col, char in enumerate(line):
+            if char == "#":
+                galaxies.add(Point(row, col))
+                non_empty_rows.add(row)
+                non_empty_cols.add(col)
+
+    empty_rows = set(range(0, max(non_empty_rows))) - non_empty_rows
+    for galaxie in galaxies:
+        gr = galaxie.row
+        for row in empty_rows:
+            if galaxie.row > row:
+                gr += 1
+        galaxie.row = gr
+
+    empty_cols = set(range(0, max(non_empty_cols))) - non_empty_cols
+    for galaxie in galaxies:
+        gc = galaxie.col
+        for col in empty_cols:
+            if galaxie.col > col:
+                gc += 1
+        galaxie.col = gc
+
+    total = 0
+    for galaxyA, galaxyB in combinations(galaxies, 2):
+        total += abs(galaxyA.row - galaxyB.row) + abs(galaxyA.col - galaxyB.col)
+
+    return total
 
 
 def B(input: str) -> int:
-    return None
+    galaxies: set[Point] = set()
+    non_empty_rows: set[int] = set()
+    non_empty_cols: set[int] = set()
+    for row, line in enumerate(input.splitlines()):
+        for col, char in enumerate(line):
+            if char == "#":
+                galaxies.add(Point(row, col))
+                non_empty_rows.add(row)
+                non_empty_cols.add(col)
+
+    empty_rows = set(range(0, max(non_empty_rows))) - non_empty_rows
+    for galaxie in galaxies:
+        gr = galaxie.row
+        for row in empty_rows:
+            if galaxie.row > row:
+                gr += 999_999
+        galaxie.row = gr
+
+    empty_cols = set(range(0, max(non_empty_cols))) - non_empty_cols
+    for galaxie in galaxies:
+        gc = galaxie.col
+        for col in empty_cols:
+            if galaxie.col > col:
+                gc += 999_999
+        galaxie.col = gc
+
+    total = 0
+    for galaxyA, galaxyB in combinations(galaxies, 2):
+        total += abs(galaxyA.row - galaxyB.row) + abs(galaxyA.col - galaxyB.col)
+
+    return total
 
 
 for i, (data, solution) in enumerate(sample_data["A"], 1):

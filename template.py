@@ -54,12 +54,14 @@ def B(input: str) -> int:
 
 
 for i, (data, solution) in enumerate(sample_data["A"], 1):
+    if data == "" or solution is None: continue
     assert (recived := A(data)) == solution, f"\nexpected:\n{indent(str(solution), '\t')}\n\nrecived:\n{indent(str(recived), '\t')}"
     print(f"passed example {i} for A, {recived=} == {solution=}")
 submit((answer := A(puzzle_data)), part="a", day=${DAY}, year=${YEAR})
 print(f"submitted {answer=} for part A")
 
 for i, (data, solution) in enumerate(sample_data["B"], 1):
+    if data == "" or solution is None: continue
     assert (recived := B(data)) == solution, f"\nexpected:\n{indent(str(solution), '\t')}\n\nrecived:\n{indent(str(recived), '\t')}"
     print(f"passed example {i} for B, {recived=} == {solution=}")
 submit((answer := B(puzzle_data)), part="b", day=${DAY}, year=${YEAR})
